@@ -70,8 +70,8 @@ traefik:
     entrypoints.web.address: ":80"
     entrypoints.websecure.address: ":443"
     "http.middlewares.workout-stripprefix.stripprefix.prefixes": "/workout"
-    "http.routers.workout.middlewares": "workout-stripprefix@docker"
     "http.routers.workout.rule": "Host(`chrisha.io`) && PathPrefix(`/workout`)"
+    "http.routers.workout.middlewares": "workout-stripprefix@docker"
 
 # Configure a custom healthcheck (default is /up on port 3000)
 # healthcheck:
@@ -112,5 +112,9 @@ env:
     - ANTHROPIC_API_KEY
 
 healthcheck:
-  path: /workout
+  path: /
   port: 8000
+  test: ["CMD-SHELL", "curl -f http://localhost:8000/ || exit 1"]
+  interval: 10s
+  timeout: 5s
+  retries: 3
