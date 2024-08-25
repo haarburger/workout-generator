@@ -29,12 +29,19 @@
             padding-top: 1rem; /* Adjust this value as needed */
         }
     }
+
+    /* Responsive font size for the title */
+    @media (max-width: 390px) {
+        h1 {
+            font-size: 1.75rem; /* Approximately 28px */
+        }
+    }
 </style>
 </head>
 <body class="gradient-bg min-h-screen">
     <div class="flex flex-col justify-center items-center min-h-screen py-8 px-4 sm:px-0">
-        <div class="container bg-white bg-opacity-90 p-6 sm:p-10 rounded-3xl shadow-2xl backdrop-blur-sm mb-8">
-            <h1 class="text-4xl font-extrabold mb-2 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">Workout Generator</h1>
+        <div class="container bg-white bg-opacity-90 p-6 sm:p-10 rounded-3xl shadow-2xl backdrop-blur-sm mb-8 pb-12">
+            <h1 class="text-3xl sm:text-4xl font-extrabold mb-2 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">Workout Generator</h1>
             <p class="text-gray-600 mb-8 text-center">Create a simple Crossfit-style workout</p>
             <form id="workout-form" method="POST" class="space-y-6">
                 <div>
@@ -90,7 +97,7 @@
                         <output id="duration-output" class="absolute left-1/2 transform -translate-x-1/2 -top-8 bg-indigo-600 text-white px-2 py-1 rounded-full text-sm font-semibold whitespace-nowrap">15 minutes</output>
                     </div>
                 </div>
-                <div class="mt-12 flex justify-center">  <!-- Added margin-top and centering -->
+                <div class="mt-8 flex justify-center">  <!-- Added margin-top and centering -->
                     <button type="submit" id="generate-btn" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-full hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-lg text-lg">
                         Generate Workout
                     </button>
@@ -302,6 +309,9 @@
                             </div>
                         </div>
                     `;
+                    // Ensure the container is visible and has top margin
+                    workoutContainer.classList.remove('hidden');
+                    workoutContainer.closest('.container').classList.remove('hidden');
                 } else {
                     const workoutContainer = document.getElementById('workout-container');
                     workoutContainer.innerHTML = `
