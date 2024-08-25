@@ -41,11 +41,14 @@ def index():
 @rate_limited
 def generate_workout_handler():
     style = request.form.get('style')
-    equip = request.form.getlist('equipment')  # Changed to getlist to handle multiple selections
+    equip = request.form.getlist('equipment')
     duration = request.form.get('duration')
 
-    workout = generate_workout(style, equip, duration)
-    return jsonify({"workout": workout})
+    try:
+        workout = generate_workout(style, equip, duration)
+        return jsonify({"success": True, "workout": workout})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
 def generate_workout(style, equip, duration):
     import anthropic
@@ -75,7 +78,7 @@ Assistant:
             prompt=prompt,
             max_tokens_to_sample=150
         )
-        workout = response.completion
+        workout = response.completion.strip()  # Remove any leading/trailing whitespace
     except Exception as e:
         workout = f"Error generating workout: {str(e)}"
 
