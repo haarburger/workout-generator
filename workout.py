@@ -39,6 +39,7 @@ def index():
         return generate_workout_handler()
     return render_template('index.html', styles=workout_styles, equipment=equipment, durations=durations, loading=False)
 
+@app.route('/workout/generate', methods=['POST'])
 @rate_limited
 def generate_workout_handler():
     style = request.form.get('style')
