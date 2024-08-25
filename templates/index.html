@@ -10,87 +10,108 @@
         background: linear-gradient(-45deg, rgba(128, 128, 128, 0.3), rgba(128, 128, 128, 0.3), rgba(128, 128, 128, 0.3), rgba(128, 128, 128, 0.3));
         background-size: 400% 400%;
     }
+    /* Base styles for mobile */
+    .container {
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /* Adjust for larger screens */
+    @media (min-width: 640px) {
+        .container {
+            max-width: 42rem; /* equivalent to max-w-2xl */
+        }
+    }
+    /* Add padding to the top on mobile */
+    @media (max-width: 639px) {
+        body {
+            padding-top: 2rem; /* Adjust this value as needed */
+        }
+    }
 </style>
 </head>
-<body class="gradient-bg flex flex-col justify-center items-center min-h-screen">
-    <div class="container mx-auto max-w-2xl bg-white bg-opacity-90 p-10 rounded-2xl shadow-2xl backdrop-blur-sm mb-8">
-        <h1 class="text-4xl font-extrabold mb-2 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">Workout Generator</h1>
-        <p class="text-gray-600 mb-8 text-center">Create a simple Crossfit-style workout in seconds</p>
-        <form id="workout-form" method="POST" class="space-y-6">
-            <div>
-                <label for="style" class="block text-sm font-medium text-gray-700 mb-1">Workout Style</label>
-                <div class="relative">
-                    <select name="style" id="style" class="hidden">
-                        {% for style in styles %}
-                            <option value="{{ style }}">{{ style }}</option>
-                        {% endfor %}
-                    </select>
-                    <div id="style-dropdown" class="bg-white border-2 border-gray-300 rounded-lg p-2 cursor-pointer">
-                        <span class="text-gray-500">Select workout style...</span>
-                    </div>
-                    <div id="style-options" class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg hidden">
-                        {% for style in styles %}
-                            <div class="style-option p-2 hover:bg-gray-100 cursor-pointer" data-value="{{ style }}">{{ style }}</div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <div>
-                <label for="equipment" class="block text-sm font-medium text-gray-700 mb-1">Equipment</label>
-                <div id="selected-equipment" class="mb-2 flex flex-wrap gap-2"></div>
-                <div class="relative">
-                    <select name="equipment" id="equipment" multiple class="hidden">
-                        {% for item in equipment %}
-                            <option value="{{ item }}">{{ item }}</option>
-                        {% endfor %}
-                    </select>
-                    <div id="equipment-dropdown" class="bg-white border-2 border-gray-300 rounded-lg p-2 cursor-pointer">
-                        <span class="text-gray-500">Select equipment...</span>
-                    </div>
-                    <div id="equipment-options" class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg hidden max-h-48 overflow-y-auto">
-                        <div class="equipment-option p-2 hover:bg-gray-100 cursor-pointer" id="add-custom-equipment">
-                            <input type="text" placeholder="Add custom equipment" class="w-full p-1 border border-gray-300 rounded" id="custom-equipment-input">
+<body class="gradient-bg min-h-screen">
+    <div class="flex flex-col justify-center items-center min-h-screen py-8 px-4 sm:px-0">
+        <div class="container bg-white bg-opacity-90 p-6 sm:p-10 rounded-3xl shadow-2xl backdrop-blur-sm mb-8">
+            <h1 class="text-4xl font-extrabold mb-2 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">Workout Generator</h1>
+            <p class="text-gray-600 mb-8 text-center">Create a simple Crossfit-style workout in seconds</p>
+            <form id="workout-form" method="POST" class="space-y-6">
+                <div>
+                    <label for="style" class="block text-sm font-medium text-gray-700 mb-1">Workout Style</label>
+                    <div class="relative">
+                        <select name="style" id="style" class="hidden">
+                            {% for style in styles %}
+                                <option value="{{ style }}">{{ style }}</option>
+                            {% endfor %}
+                        </select>
+                        <div id="style-dropdown" class="bg-white border-2 border-gray-300 rounded-lg p-2 cursor-pointer">
+                            <span class="text-gray-500">Select workout style...</span>
                         </div>
-                        {% for item in equipment %}
-                            <div class="equipment-option p-2 hover:bg-gray-100 cursor-pointer" data-value="{{ item }}">{{ item }}</div>
-                        {% endfor %}
+                        <div id="style-options" class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg hidden">
+                            {% for style in styles %}
+                                <div class="style-option p-2 hover:bg-gray-100 cursor-pointer" data-value="{{ style }}">{{ style }}</div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="mb-8">  <!-- Increased bottom margin -->
-                <label for="duration" class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
-                <div class="relative pt-1">
-                    <input type="range" name="duration" id="duration" min="2" max="30" value="15"
-                           class="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer"
-                           oninput="updateSlider(this)">
-                    <div class="absolute left-0 right-0 -bottom-6 flex justify-between">
-                        <span class="text-xs text-gray-500">2m</span>
-                        <span class="text-xs text-gray-500">30m</span>
+                <div>
+                    <label for="equipment" class="block text-sm font-medium text-gray-700 mb-1">Equipment</label>
+                    <div id="selected-equipment" class="mb-2 flex flex-wrap gap-2"></div>
+                    <div class="relative">
+                        <select name="equipment" id="equipment" multiple class="hidden">
+                            {% for item in equipment %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endfor %}
+                        </select>
+                        <div id="equipment-dropdown" class="bg-white border-2 border-gray-300 rounded-lg p-2 cursor-pointer">
+                            <span class="text-gray-500">Select equipment...</span>
+                        </div>
+                        <div id="equipment-options" class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg hidden max-h-48 overflow-y-auto">
+                            <div class="equipment-option p-2 hover:bg-gray-100 cursor-pointer" id="add-custom-equipment">
+                                <input type="text" placeholder="Add custom equipment" class="w-full p-1 border border-gray-300 rounded" id="custom-equipment-input">
+                            </div>
+                            {% for item in equipment %}
+                                <div class="equipment-option p-2 hover:bg-gray-100 cursor-pointer" data-value="{{ item }}">{{ item }}</div>
+                            {% endfor %}
+                        </div>
                     </div>
-                    <output id="duration-output" class="absolute left-1/2 transform -translate-x-1/2 -top-8 bg-indigo-600 text-white px-2 py-1 rounded-full text-sm font-semibold whitespace-nowrap">15 minutes</output>
                 </div>
-            </div>
-            <div class="mt-12 flex justify-center">  <!-- Added margin-top and centering -->
-                <button type="submit" id="generate-btn" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-full hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-lg text-lg">
-                    Generate Workout
-                </button>
-            </div>
-        </form>
-    </div>
-    <div class="container mx-auto max-w-2xl">
-        <div id="loading" class="hidden text-center">
-            <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-600"></div>
-            <p class="mt-2 text-indigo-600 font-semibold">Generating workout...</p>
+                <div class="mb-8">  <!-- Increased bottom margin -->
+                    <label for="duration" class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
+                    <div class="relative pt-1">
+                        <input type="range" name="duration" id="duration" min="2" max="30" value="15"
+                               class="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer"
+                               oninput="updateSlider(this)">
+                        <div class="absolute left-0 right-0 -bottom-6 flex justify-between">
+                            <span class="text-xs text-gray-500">2m</span>
+                            <span class="text-xs text-gray-500">30m</span>
+                        </div>
+                        <output id="duration-output" class="absolute left-1/2 transform -translate-x-1/2 -top-8 bg-indigo-600 text-white px-2 py-1 rounded-full text-sm font-semibold whitespace-nowrap">15 minutes</output>
+                    </div>
+                </div>
+                <div class="mt-12 flex justify-center">  <!-- Added margin-top and centering -->
+                    <button type="submit" id="generate-btn" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-full hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-lg text-lg">
+                        Generate Workout
+                    </button>
+                </div>
+            </form>
         </div>
-        <div id="workout-container">
-            {% if workout %}
-                <div id="workout-result" class="p-6 bg-white rounded-full shadow-md border border-gray-200">
-                    <h2 class="text-2xl font-bold mb-4 text-gray-800">Your Workout:</h2>
-                    <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-4 rounded-full">
-                        <pre class="text-gray-700 text-lg whitespace-pre-line">{{ workout }}</pre>
+        <div class="container mx-auto max-w-2xl mt-8">
+            <div id="loading" class="hidden text-center">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-600"></div>
+                <p class="mt-2 text-indigo-600 font-semibold">Generating workout...</p>
+            </div>
+            <div id="workout-container" class="bg-white bg-opacity-90 p-6 sm:p-10 rounded-3xl shadow-2xl backdrop-blur-sm mb-8 w-full sm:w-auto">
+                {% if workout %}
+                    <div id="workout-result">
+                        <h2 class="text-2xl font-bold mb-4 text-gray-800">Your Workout:</h2>
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-4 rounded-2xl">
+                            <pre class="text-gray-700 text-lg whitespace-pre-line">{{ workout }}</pre>
+                        </div>
                     </div>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
     </div>
     <script>
@@ -274,9 +295,9 @@
                 if (data.success) {
                     const workoutContainer = document.getElementById('workout-container');
                     workoutContainer.innerHTML = `
-                        <div id="workout-result" class="p-6 bg-white rounded-lg shadow-md border border-gray-200">
+                        <div id="workout-result">
                             <h2 class="text-2xl font-bold mb-4 text-gray-800">Your Workout:</h2>
-                            <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-4 rounded-md">
+                            <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-4 rounded-2xl">
                                 <pre class="text-gray-700 text-lg whitespace-pre-line">${data.workout}</pre>
                             </div>
                         </div>
@@ -284,7 +305,7 @@
                 } else {
                     const workoutContainer = document.getElementById('workout-container');
                     workoutContainer.innerHTML = `
-                        <div id="error-message" class="p-6 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                        <div id="error-message" class="p-6 bg-red-100 border border-red-400 text-red-700 rounded-2xl">
                             <h2 class="font-bold text-xl mb-2">Error</h2>
                             <p>${data.error}</p>
                         </div>
@@ -295,7 +316,7 @@
                 console.error('Error:', error);
                 const workoutContainer = document.getElementById('workout-container');
                 workoutContainer.innerHTML = `
-                    <div id="error-message" class="p-6 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                    <div id="error-message" class="p-6 bg-red-100 border border-red-400 text-red-700 rounded-2xl">
                         <h2 class="font-bold text-xl mb-2">Error</h2>
                         <p>${error.message}</p>
                     </div>
