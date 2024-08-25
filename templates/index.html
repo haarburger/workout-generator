@@ -265,24 +265,31 @@
             const formData = new FormData(this);
 
             // Send AJAX request
-            fetch('/', {
+            fetch('/workout/generate', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-                const workoutContainer = document.getElementById('workout-container');
-                workoutContainer.innerHTML = `
-                    <div id="workout-result" class="p-6 bg-white rounded-lg shadow-md border border-gray-200">
-                        <h2 class="text-2xl font-bold mb-4 text-gray-800">Your Workout:</h2>
-                        <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-4 rounded-md">
-                            <pre class="text-gray-700 text-lg whitespace-pre-line">${data.workout}</pre>
+                if (data.success) {
+                    const workoutContainer = document.getElementById('workout-container');
+                    workoutContainer.innerHTML = `
+                        <div id="workout-result" class="p-6 bg-white rounded-lg shadow-md border border-gray-200">
+                            <h2 class="text-2xl font-bold mb-4 text-gray-800">Your Workout:</h2>
+                            <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-4 rounded-md">
+                                <pre class="text-gray-700 text-lg whitespace-pre-line">${data.workout}</pre>
+                            </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                } else {
+                    const workoutContainer = document.getElementById('workout-container');
+                    workoutContainer.innerHTML = `
+                        <div id="error-message" class="p-6 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                            <h2 class="font-bold text-xl mb-2">Error</h2>
+                            <p>${data.error}</p>
+                        </div>
+                    `;
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
