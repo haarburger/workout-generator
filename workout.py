@@ -69,7 +69,7 @@ Style: {style}
 Equipment: {', '.join(equip)}
 Duration: {duration} minutes
 
-Just post the raw workout, no preamble or other text, no warmup or cooldown. Print each exercise on a new line. Use all the equipment that was provided. Always mention the number of rounds, reps, and rest time. If you suggest weights, specify the weight in kg and pounds in a consistent format, e.g. (20kg/45lbs).
+Just post the raw workout, no preamble or other text, no warmup or cooldown. Print each exercise on a new line. Use all the equipment that was provided but no equipment that was not provided (bodyweight movements are fine). Always mention the number of rounds, reps, and rest time. If you suggest weights, specify the weight in kg and pounds in a consistent format, e.g. (20kg/45lbs).
 
 Assistant:
 """
