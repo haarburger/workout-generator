@@ -20,7 +20,7 @@
     /* Adjust for larger screens */
     @media (min-width: 640px) {
         .container {
-            max-width: 42rem; /* equivalent to max-w-2xl */
+            max-width: 56rem; /* Increased from 42rem to 56rem (equivalent to max-w-3xl) */
         }
     }
     /* Add padding to the top on mobile */
@@ -40,7 +40,7 @@
 </head>
 <body class="gradient-bg min-h-screen">
     <div class="flex flex-col justify-center items-center min-h-screen py-8 px-4 sm:px-0">
-        <div class="container mx-auto max-w-full sm:max-w-2xl bg-white bg-opacity-90 p-6 sm:p-10 rounded-3xl shadow-2xl backdrop-blur-sm mb-8 pb-12">
+        <div class="container mx-auto max-w-full sm:max-w-3xl bg-white bg-opacity-90 p-6 sm:p-10 rounded-3xl shadow-2xl backdrop-blur-sm mb-8 pb-12">
             <h1 class="text-3xl sm:text-4xl font-extrabold mb-2 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">Workout Generator</h1>
             <p class="text-gray-600 mb-8 text-center">Create a simple Crossfit-style workout</p>
             <form id="workout-form" method="POST" class="space-y-6">
@@ -109,7 +109,7 @@
             <p class="mt-2 text-indigo-600 font-semibold">Generating workout...</p>
         </div>
 
-        <div id="workout-container" class="container mx-auto max-w-2xl mt-8 hidden">
+        <div id="workout-container" class="container mx-auto max-w-3xl mt-8 hidden">
             <div class="bg-white bg-opacity-90 p-6 sm:p-10 rounded-3xl shadow-2xl backdrop-blur-sm mb-8 w-full sm:w-auto">
                 <div id="workout-result">
                     <!-- Workout result will be inserted here dynamically -->
