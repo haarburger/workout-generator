@@ -33,7 +33,7 @@ def rate_limited(func):
         return func(*args, **kwargs)
     return wrapper
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/workout/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         return generate_workout_handler()
