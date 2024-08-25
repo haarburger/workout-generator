@@ -104,20 +104,16 @@
                 </div>
             </form>
         </div>
-        <div class="container mx-auto max-w-2xl mt-8">
-            <div id="loading" class="hidden text-center">
-                <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-600"></div>
-                <p class="mt-2 text-indigo-600 font-semibold">Generating workout...</p>
-            </div>
-            <div id="workout-container" class="bg-white bg-opacity-90 p-6 sm:p-10 rounded-3xl shadow-2xl backdrop-blur-sm mb-8 w-full sm:w-auto">
-                {% if workout %}
-                    <div id="workout-result">
-                        <h2 class="text-2xl font-bold mb-4 text-gray-800">Your Workout:</h2>
-                        <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-4 rounded-2xl">
-                            <pre class="text-gray-700 text-lg whitespace-pre-line">{{ workout }}</pre>
-                        </div>
-                    </div>
-                {% endif %}
+        <div id="loading" class="hidden text-center">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-600"></div>
+            <p class="mt-2 text-indigo-600 font-semibold">Generating workout...</p>
+        </div>
+
+        <div id="workout-container" class="container mx-auto max-w-2xl mt-8 hidden">
+            <div class="bg-white bg-opacity-90 p-6 sm:p-10 rounded-3xl shadow-2xl backdrop-blur-sm mb-8 w-full sm:w-auto">
+                <div id="workout-result">
+                    <!-- Workout result will be inserted here dynamically -->
+                </div>
             </div>
         </div>
     </div>
