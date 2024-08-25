@@ -6,6 +6,7 @@ from collections import deque
 import time
 
 app = Flask(__name__)
+app.config['APPLICATION_ROOT'] = '/workout'
 
 workout_styles = ["AMRAP", "For Time", "EMOM"]
 equipment = sorted(["Barbell", "Kettlebell", "Bodyweight", "Dumbbell", "Jump Rope", "Pull-up Bar", "Bike Erg"])
